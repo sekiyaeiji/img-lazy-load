@@ -1,0 +1,53 @@
+extend ../layout/default
+
+block page_data
+  - var siteTitle = ""
+  - var description = ""
+  - var keywords = ""
+  - var siteUrl = ""
+
+block body
+  h1 lazy loading img src attribute
+  ul.img-list
+    li
+      p
+        img(src="https://sekiyaeiji.github.io/image-storage/dist/img/heavy-img/img_0286.jpg")
+    li
+      p テキストテキストテキストテキストテキスト
+        br
+        |テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト
+        br
+        |テキストテキストテキスト
+        br
+        |テキストテキストテキストテキスト
+    li
+      p
+        img.w800(src="https://sekiyaeiji.github.io/image-storage/dist/img/heavy-img/img_0290.jpg")
+    li
+      p
+        img.w500.js-lazyLoadImg(src="https://sekiyaeiji.github.io/image-storage/dist/img/heavy-img/img_0311.jpg")
+    li
+      p テキストテキストテキストテキストテキスト
+        br
+        |テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト
+        br
+        |テキストテキストテキスト
+        br
+        |テキストテキストテキストテキスト
+    li
+      p
+        img.w300.js-lazyLoadImg(src="https://sekiyaeiji.github.io/image-storage/dist/img/heavy-img/img_0337.jpg")
+    li
+      p テキストテキストテキストテキストテキスト
+        br
+        |テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト
+        br
+        |テキストテキストテキスト
+        br
+        |テキストテキストテキストテキスト
+    li
+      p
+        img.w500.js-lazyLoadImg(src="https://sekiyaeiji.github.io/image-storage/dist/img/heavy-img/img_1537.jpg")
+    li
+      p
+        img.js-lazyLoadImg(src="https://sekiyaeiji.github.io/image-storage/dist/img/heavy-img/img_0626.jpg")
