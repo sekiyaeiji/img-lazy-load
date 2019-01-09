@@ -2,15 +2,12 @@
 module.exports = function() {
   'use strict'
 
-  const sampleA = require('./_sample_a')
-  sampleA('hoge')
-
   // lazy load img
   const lazyLoadImg = {
     config: {
-      flag_switch: true,
+      target_class_name: 'js-lazyLoadImg',
     },
-
+    // 初期処理
     init: function() {
       const that = this
       // UI Ready
@@ -18,19 +15,16 @@ module.exports = function() {
       // event bind
       that.event()
     },
-
+    // イベントbind
     event: function() {
-      const that = this
-      // scroll event
-      window.addEventListener('scroll', () => {
-        lazyLoadImg._callback = that.main()
-
-        console.log('event')
-      })
+      // window scroll
+      window.addEventListener('scroll', lazyLoadImg.main)
     },
-
+    // 画像パスをdummy画像パスに差し替え
     ready: function() {
-      const target = document.getElementsByClassName('js-lazyLoadImg')
+      const that = this
+      console.log(that.config.target_class_name)
+      const target = document.getElementsByClassName(lazyLoadImg.config.target_class_name)
       const imgDefault = 'img/default.png'
       for (const item of target) {
         const imgOrigin = item.getAttribute('src')
@@ -38,37 +32,31 @@ module.exports = function() {
         item.setAttribute('data-src', imgOrigin)
       }
     },
-
+    // lazy load処理
+    loadLazy: function(elm) {
+      const imgCurrent = elm.getAttribute('data-src')
+      elm.setAttribute('src', imgCurrent)
+      elm.classList.add('js-loaded')
+    },
+    // scrollに伴うlazy load処理
     main: function() {
       const that = this
-      console.log('UnBind!!')
-      console.log(that)
-      window.removeEventListener('scroll', that._callback)
 
-      const target = document.getElementsByClassName('js-lazyLoadImg')
-      // console.log(target.length)
-      // const loaded = document.getElementsByClassName('js-loaded')
-      // console.log(loaded.length)
-      // const winHeight = window.parent.screen.height
-      // const offsetHeight = 500
+      // 処理
+      const target = document.getElementsByClassName(lazyLoadImg.config.target_class_name)
       for (const item of target) {
         const isLoaded = item.hasAttribute('data-loaded')
-        // console.log(item)
-        // console.log(isLoaded)
         if (isLoaded) {
           return
         }
-        // const objectY = item.getBoundingClientRect().top
-        // if (objectY > winHeight + offsetHeight) {
-        //   return
-        // }
-        const imgCurrent = item.getAttribute('data-src')
-        item.setAttribute('src', imgCurrent)
-        item.classList.add('js-loaded')
+        that.loadLazy(item)
       }
+
+      // removeEventListener
+      window.removeEventListener('scroll', lazyLoadImg.main)
     },
   }
 
-  // 即時実行
+  // 即実行
   lazyLoadImg.init()
 }
