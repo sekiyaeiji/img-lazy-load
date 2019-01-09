@@ -23,7 +23,9 @@ module.exports = function() {
       const that = this
       // scroll event
       window.addEventListener('scroll', () => {
-        that.main()
+        lazyLoadImg._callback = that.main()
+
+        console.log('event')
       })
     },
 
@@ -38,22 +40,31 @@ module.exports = function() {
     },
 
     main: function() {
+      const that = this
+      console.log('UnBind!!')
+      console.log(that)
+      window.removeEventListener('scroll', that._callback)
+
       const target = document.getElementsByClassName('js-lazyLoadImg')
-      const winHeight = window.parent.screen.height
-      const offsetHeight = 500
+      // console.log(target.length)
+      // const loaded = document.getElementsByClassName('js-loaded')
+      // console.log(loaded.length)
+      // const winHeight = window.parent.screen.height
+      // const offsetHeight = 500
       for (const item of target) {
-        const isTarget = item.hasAttribute('data-src')
-        console.log(isTarget)
-        if (!isTarget) {
+        const isLoaded = item.hasAttribute('data-loaded')
+        // console.log(item)
+        // console.log(isLoaded)
+        if (isLoaded) {
           return
         }
-        const objectY = item.getBoundingClientRect().top
-        if (objectY > winHeight + offsetHeight) {
-          return
-        }
+        // const objectY = item.getBoundingClientRect().top
+        // if (objectY > winHeight + offsetHeight) {
+        //   return
+        // }
         const imgCurrent = item.getAttribute('data-src')
         item.setAttribute('src', imgCurrent)
-        item.removeAttribute('data-src')
+        item.classList.add('js-loaded')
       }
     },
   }
