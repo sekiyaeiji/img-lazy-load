@@ -60,7 +60,10 @@ module.exports = function() {
       }
 
       // すべてload済みになったら、removeEventListenerによりイベントをunbind
-      lazyLoadImg.eventUnBind()
+      const loaded = document.getElementsByClassName(lazyLoadImg.config.class_loaded)
+      if (loaded.length >= target.length) {
+        lazyLoadImg.eventUnBind()
+      }
     },
     // lazy load処理
     loadLazy: function(elm) {
