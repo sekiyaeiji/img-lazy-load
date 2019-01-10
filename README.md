@@ -1,5 +1,7 @@
 # img-lazy-load
 
+- 画像のレイジーロード処理の、ごくシンプルな手順を実装
+
 # package
 
 ## package installed
